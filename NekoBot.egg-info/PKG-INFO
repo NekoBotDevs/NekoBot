@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: NekoBot
+Version: 1.0.0
+Summary: 一个简单易上手的多平台聊天机器人框架
+License: AGPL-3.0-or-later
+Project-URL: Homepage, https://github.com/NekoBotDevs/NekoBot
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp
+Requires-Dist: pydantic~=2.10.3
+Requires-Dist: psutil>=5.8.0
+Requires-Dist: openai
+Requires-Dist: anthropic
+Requires-Dist: qq-botpy
+Requires-Dist: chardet~=5.1.0
+Requires-Dist: Pillow
+Requires-Dist: beautifulsoup4
+Requires-Dist: googlesearch-python
+Requires-Dist: readability-lxml
+Requires-Dist: quart
+Requires-Dist: quart-cors
+Requires-Dist: lxml_html_clean
+Requires-Dist: colorlog
+Requires-Dist: aiocqhttp
+Requires-Dist: pyjwt
+Requires-Dist: bcrypt
+Requires-Dist: apscheduler
+Requires-Dist: docstring_parser
+Requires-Dist: aiodocker
+Requires-Dist: silk-python
+Requires-Dist: lark-oapi
+Requires-Dist: ormsgpack
+Requires-Dist: cryptography
+Requires-Dist: dashscope
+Requires-Dist: python-telegram-bot
+Requires-Dist: wechatpy
+Requires-Dist: dingtalk-stream
+Requires-Dist: defusedxml
+Requires-Dist: mcp
+Requires-Dist: certifi
+Requires-Dist: pip
+Requires-Dist: telegramify-markdown
+Requires-Dist: google-genai
+Requires-Dist: click
+Requires-Dist: filelock
+Requires-Dist: watchfiles
+Requires-Dist: websockets
+Requires-Dist: faiss-cpu
+Requires-Dist: aiosqlite
+Requires-Dist: py-cord>=2.6.1
+Requires-Dist: slack-sdk
+Requires-Dist: pydub
+Requires-Dist: sqlmodel
+Requires-Dist: deprecated
+Requires-Dist: sqlalchemy[asyncio]
+Requires-Dist: pyjson5
+Requires-Dist: pyyaml
+Requires-Dist: requests
+Dynamic: license-file
+
+# NekoBot
+
+## 预览
+
+在考虑使用Python + Next.js开发此框架,其中Next.js用于构建前端静态仪表盘,Next.js的开箱即用的SSR等功能特性使其成为我们团队的理想选择。
+
+## 项目进度
+
+还在开发中,敬请期待!

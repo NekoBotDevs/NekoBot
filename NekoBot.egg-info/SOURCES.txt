@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+NekoBot.egg-info/PKG-INFO
+NekoBot.egg-info/SOURCES.txt
+NekoBot.egg-info/dependency_links.txt
+NekoBot.egg-info/entry_points.txt
+NekoBot.egg-info/requires.txt
+NekoBot.egg-info/top_level.txt
+nekobot/__init__.py
+nekobot/app.py

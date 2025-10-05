@@ -26,6 +26,6 @@ dashboard/.next
 
 # 供vibe coding 使用的目录
 
-LLM/
+#LLM/
 test/
 AstrBot/

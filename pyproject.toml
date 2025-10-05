@@ -4,13 +4,81 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "NekoBot"
-version = "0.1.0"
+version = "1.0.0"
 description = "一个简单易上手的多平台聊天机器人框架"
 readme = "README.md"
 license = {text = "AGPL-3.0-or-later"}
 requires-python = ">=3.10"
+dependencies = [
+    "aiohttp",
+    "pydantic~=2.10.3",
+    "psutil>=5.8.0",
+    "openai",
+    "anthropic",
+    "qq-botpy",
+    "chardet~=5.1.0",
+    "Pillow",
+    "beautifulsoup4",
+    "googlesearch-python",
+    "readability-lxml",
+    "quart",
+    "quart-cors",
+    "lxml_html_clean",
+    "colorlog",
+    "aiocqhttp",
+    "pyjwt",
+    "bcrypt",
+    "apscheduler",
+    "docstring_parser",
+    "aiodocker",
+    "silk-python",
+    "lark-oapi",
+    "ormsgpack",
+    "cryptography",
+    "dashscope",
+    "python-telegram-bot",
+    "wechatpy",
+    "dingtalk-stream",
+    "defusedxml",
+    "mcp",
+    "certifi",
+    "pip",
+    "telegramify-markdown",
+    "google-genai",
+    "click",
+    "filelock",
+    "watchfiles",
+    "websockets",
+    "faiss-cpu",
+    "aiosqlite",
+    "py-cord>=2.6.1",
+    "slack-sdk",
+    "pydub",
+    "sqlmodel",
+    "deprecated",
+    "sqlalchemy[asyncio]",
+    "pyjson5",
+    "pyyaml",
+    "requests",
+]
 
 [project.urls]
 Homepage = "https://github.com/NekoBotDevs/NekoBot"
 
+[project.scripts]
+nekobot-cli = "nekobot.cli.commands:cli"
 
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "ASYNC", "C4", "Q"]
+ignore = ["F403", "F405", "E501", "ASYNC230"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.setuptools]
+packages = ["nekobot"]
