@@ -33,12 +33,11 @@ class NekoConfigManager:
         self._callbacks: List[Callable] = []
         self._watch_task: Optional[asyncio.Task] = None
         self._auto_reload = auto_reload
+        self._watch_started = False
 
         self._load_config()
 
-        # 自动启动文件监控
-        if self._auto_reload:
-            self.start_watching()
+        # 不在初始化时启动监控，延迟到有事件循环时
 
     def _load_config(self):
         """加载配置文件"""
@@ -107,6 +106,10 @@ class NekoConfigManager:
 
     def get(self, key: str, default: Any = None) -> Any:
         """获取配置值（支持点号分隔的嵌套键）"""
+        # 首次访问时启动监控（如果启用了自动重载）
+        if self._auto_reload and not self._watch_started:
+            self.start_watching()
+
         keys = key.split(".")
         value = self._config
 
@@ -215,14 +218,25 @@ class NekoConfigManager:
 
     def start_watching(self):
         """启动配置文件监控"""
-        if self._watch_task is None or self._watch_task.done():
-            self._watch_task = asyncio.create_task(self._watch_config_file())
-            logger.info(f"配置文件监控已启动: {self.config_file}")
+        if self._watch_started:
+            return
+
+        try:
+            # 检查是否有运行中的事件循环
+            asyncio.get_running_loop()
+            if self._watch_task is None or self._watch_task.done():
+                self._watch_task = asyncio.create_task(self._watch_config_file())
+                self._watch_started = True
+                logger.info(f"配置文件监控已启动: {self.config_file}")
+        except RuntimeError:
+            # 没有运行中的事件循环，延迟启动
+            logger.debug("事件循环未运行，配置文件监控将在首次访问时启动")
 
     def stop_watching(self):
         """停止配置文件监控"""
         if self._watch_task and not self._watch_task.done():
             self._watch_task.cancel()
+            self._watch_started = False
             logger.info("配置文件监控已停止")
 
     async def _watch_config_file(self):

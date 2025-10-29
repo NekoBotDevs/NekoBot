@@ -11,7 +11,9 @@ from nekobot.plugin.manager import get_plugin_manager
 from nekobot.llm.manager import get_llm_manager
 from nekobot.web.app import create_app
 from nekobot.utils.logger import get_logger
+from nekobot.core.platform.sources.napcat.napcat_server import NapCatWebSocketServer
 from sqlmodel import select
+import asyncio
 
 logger = get_logger("bot")
 
@@ -26,6 +28,7 @@ class NekoBotCore:
         self.plugin_manager = get_plugin_manager()
         self.llm_manager = get_llm_manager()
         self.app = None
+        self.napcat_server = None
 
         logger.info("NekoBot 核心初始化完成")
         logger.info("配置热重载已启用")
@@ -49,6 +52,9 @@ class NekoBotCore:
         # 创建 Web 应用
         self.app = create_app()
 
+        # 初始化 NapCat WebSocket 服务器（如果启用）
+        await self._init_napcat_server()
+
         logger.info("NekoBot 初始化完成")
 
     async def _init_default_user(self):
@@ -71,6 +77,26 @@ class NekoBotCore:
                 logger.warning(
                     "已创建默认用户 (用户名: nekobot, 密码: nekobot)，请尽快修改密码"
                 )
+
+    async def _init_napcat_server(self):
+        """初始化 NapCat WebSocket 服务器"""
+        ws_config = self.config_manager.get("websocket_server", {})
+
+        if ws_config.get("enabled", False):
+            host = ws_config.get("host", "0.0.0.0")
+            port = ws_config.get("port", 6299)
+            token = ws_config.get("token")
+
+            self.napcat_server = NapCatWebSocketServer(
+                host=host, port=port, access_token=token
+            )
+
+            # 在后台启动服务器
+            asyncio.create_task(self.napcat_server.run())
+
+            logger.info(f"NapCat WebSocket 服务器已启动: ws://{host}:{port}/ws")
+        else:
+            logger.info("NapCat WebSocket 服务器未启用")
 
     async def start(self):
         """启动 NekoBot"""
@@ -101,6 +127,10 @@ class NekoBotCore:
 
         # 关闭数据库连接
         await self.db_manager.close()
+
+        # 关闭 NapCat 服务器
+        if self.napcat_server:
+            logger.info("NapCat WebSocket 服务器已关闭")
 
         logger.info("NekoBot 已关闭")
 

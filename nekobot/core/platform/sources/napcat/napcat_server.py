@@ -38,7 +38,7 @@ class NapCatWebSocketServer:
     def _setup_routes(self):
         """设置路由"""
 
-        @self.app.websocket("/")
+        @self.app.websocket("/ws")
         async def ws_handler():
             """WebSocket 连接处理"""
             logger.info("收到 WebSocket 连接请求")
