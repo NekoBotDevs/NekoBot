@@ -1,0 +1,16 @@
+openai
+anthropic
+google-genai
+python-dotenv
+requests
+pydantic
+aiohttp
+sounddevice
+soundfile
+librosa
+scipy
+numpy
+pyttsx3
+edge-tts
+google-cloud-speech
+google-cloud-texttospeech
